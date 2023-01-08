@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/item_article_none">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/column_01"
+        style="@style/column"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/column_02"
+        style="@style/column"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/column_03"
+        style="@style/column"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/row_01"
+        style="@style/row"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/row_02"
+        style="@style/row"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <TextView
+        android:id="@+id/item_article_code"
+        style="@style/item_article_data"
+        app:layout_constraintBottom_toTopOf="@+id/row_01"
+        app:layout_constraintEnd_toStartOf="@+id/column_02"
+        app:layout_constraintStart_toStartOf="@+id/column_01"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Article Code" />
+
+    <TextView
+        android:id="@+id/item_article_stock"
+        style="@style/item_article_data"
+        app:layout_constraintBottom_toTopOf="@+id/row_01"
+        app:layout_constraintEnd_toStartOf="@+id/column_03"
+        app:layout_constraintStart_toEndOf="@+id/column_02"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Stock" />
+
+    <TextView
+        android:id="@+id/item_article_base_price"
+        style="@style/item_article_price"
+        app:layout_constraintBottom_toTopOf="@+id/row_02"
+        app:layout_constraintEnd_toStartOf="@+id/column_02"
+        app:layout_constraintStart_toStartOf="@+id/column_01"
+        app:layout_constraintTop_toTopOf="@+id/row_01"
+        tools:text="Without VAT" />
+
+    <TextView
+        android:id="@+id/item_article_taxed_price"
+        style="@style/item_article_price"
+        app:layout_constraintBottom_toTopOf="@+id/row_02"
+        app:layout_constraintEnd_toStartOf="@+id/column_03"
+        app:layout_constraintStart_toStartOf="@+id/column_02"
+        app:layout_constraintTop_toTopOf="@+id/row_01"
+        tools:text="With VAT" />
+
+    <TextView
+        android:id="@+id/item_article_description"
+        style="@style/item_article_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/column_03"
+        app:layout_constraintStart_toStartOf="@+id/column_01"
+        app:layout_constraintTop_toTopOf="@+id/row_02"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis gravida dui, eu sollicitudin massa. Nullam mattis erat lacus, et tempus est vestibulum ac. Suspendisse varius lacinia mauris, in interdum odio sodales ac. Morbi" />
+</androidx.constraintlayout.widget.ConstraintLayout>
