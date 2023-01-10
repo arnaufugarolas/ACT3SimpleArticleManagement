@@ -1,40 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="layout_w_w">
+    <style name="LayoutWW">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="layout_0_0">
+    <style name="Layout00">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
     </style>
 
-    <style name="layout_0_w">
+    <style name="Layout0W">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="layout_m_w">
+    <style name="LayoutMW">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="layout_m_m">
+    <style name="LayoutMM">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="Column" parent="layout_w_w">
+    <style name="Layout00T5" parent="Layout00">
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+
+    <style name="LayoutMWB5" parent="LayoutMW">
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="Column" parent="LayoutWW">
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="Row" parent="layout_w_w">
+    <style name="Row" parent="LayoutWW">
         <item name="android:orientation">horizontal</item>
     </style>
 
-    <style name="ItemArticleData" parent="layout_0_w">
+    <style name="ItemArticleNone" parent="LayoutMWB5">
+        <item name="android:background">@color/graphite</item>
+    </style>
+
+    <style name="ItemArticleSoftware" parent="LayoutMWB5">
+        <item name="android:background">@color/sky_blue</item>
+    </style>
+
+    <style name="ItemArticleHardware" parent="LayoutMWB5">
+        <item name="android:background">@color/kelly_green</item>
+    </style>
+
+    <style name="ItemArticleOther" parent="LayoutMWB5">
+        <item name="android:background">@color/gold</item>
+    </style>
+
+    <style name="ItemArticleData" parent="Layout0W">
         <item name="android:autoSizeTextType">uniform</item>
         <item name="android:height">25dp</item>
         <item name="android:gravity">center</item>
@@ -43,11 +66,15 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="ItemArticleDataRed" parent="ItemArticleData">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
     <style name="ItemArticlePrice" parent="ItemArticleData">
         <item name="android:layout_margin">5dp</item>
     </style>
 
-    <style name="ItemArticleDescription" parent="layout_0_w">
+    <style name="ItemArticleDescription" parent="Layout0W">
         <item name="android:autoSizeTextType">uniform</item>
         <item name="android:breakStrategy">high_quality</item>
         <item name="android:justificationMode">inter_word</item>
@@ -56,35 +83,4 @@
         <item name="android:gravity">start|center_vertical</item>
         <item name="android:autoSizeMaxTextSize">50dp</item>
     </style>
-
-    item_article
-
-    <style name="item_article" parent="layout_m_w">
-        <item name="android:layout_marginBottom">5dp</item>
-    </style>
-
-    <style name="item_article_software" parent="item_article">
-        <item name="android:background">@color/sky_blue</item>
-    </style>
-
-    <style name="item_article_hardware" parent="item_article">
-        <item name="android:background">@color/kelly_green</item>
-    </style>
-
-    <style name="item_article_other" parent="item_article">
-        <item name="android:background">@color/gold</item>
-    </style>
-
-    <style name="ItemArticleNone" parent="item_article">
-        <item name="android:background">@color/graphite</item>
-    </style>
-
-    <style name="item_article_stock_red" parent="ItemArticleData">
-        <item name="android:textColor">@color/red</item>
-    </style>
-
-    <style name="layout_0_0_T5" parent="layout_0_0">
-        <item name="android:layout_marginTop">5dp</item>
-    </style>
-
 </resources>
