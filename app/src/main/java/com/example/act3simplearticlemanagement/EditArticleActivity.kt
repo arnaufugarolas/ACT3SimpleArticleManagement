@@ -17,6 +17,7 @@ class EditArticleActivity : AppCompatActivity() {
     private lateinit var etPrice: EditText
     private lateinit var etFamily: EditText
     private lateinit var etDescription: EditText
+    private lateinit var btnSave: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,11 @@ class EditArticleActivity : AppCompatActivity() {
         etPrice = findViewById(R.id.ETArticleFormPrice)
         etFamily = findViewById(R.id.ETArticleFormFamily)
         etDescription = findViewById(R.id.ETArticleFormDescription)
+        btnSave = findViewById(R.id.BArticleFormSubmit)
+
+        btnSave.setOnClickListener {
+            updateItem()
+        }
     }
 
     private fun setupDatabase() {
@@ -63,24 +69,42 @@ class EditArticleActivity : AppCompatActivity() {
         etPrice.setText(article.price.toString())
         etFamily.setText(article.family)
         etDescription.setText(article.description)
+    }
 
-        findViewById<Button>(R.id.BArticleFormSubmit).setOnClickListener {
-            if (etPrice.text.isNotEmpty() && etDescription.text.isNotEmpty()) {
-                lifecycleScope.launch {
-                    dao.update(
-                        article.code,
-                        etDescription.text.toString(),
-                        etFamily.text.toString(),
-                        etPrice.text.toString().toFloat(),
-                        article.stock,
-                    )
-                }.invokeOnCompletion {
-                    db.close()
-                    finish()
-                }
-            } else {
-                if (etPrice.text.isEmpty()) etPrice.error = "Price is required"
-                if (etDescription.text.isEmpty()) etDescription.error = "Description is required"
+    private fun updateItem() {
+        var price = Float.NaN
+        var valid = true
+
+        if (etPrice.text.toString() != "") {
+            price = try {
+                etPrice.text.toString().toFloat()
+            } catch (e: Exception) {
+                Float.NaN
+            }
+        }
+
+        if (!price.isFinite() || price < 0) {
+            etPrice.error = "Price must be a positive number or zero"
+            valid = false
+        }
+
+        if (etDescription.text.toString() == "") {
+            etDescription.error = "Description must not be empty"
+            valid = false
+        }
+
+        if (valid) {
+            lifecycleScope.launch {
+                dao.update(
+                    article.code,
+                    etDescription.text.toString(),
+                    etFamily.text.toString(),
+                    etPrice.text.toString().toFloat(),
+                    article.stock,
+                )
+            }.invokeOnCompletion {
+                db.close()
+                finish()
             }
         }
     }

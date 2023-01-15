@@ -103,7 +103,7 @@ class AddArticleActivity : AppCompatActivity() {
                     valid = false
                 }
                 if (!price.isFinite() || price <= 0) {
-                    etPrice.error = "Price must be a positive number"
+                    etPrice.error = "Price must be a positive number or zero"
                     valid = false
                 }
                 if (description.isEmpty()) {
