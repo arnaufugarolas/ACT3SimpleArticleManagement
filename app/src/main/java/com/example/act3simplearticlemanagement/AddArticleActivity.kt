@@ -100,11 +100,11 @@ class AddArticleActivity : AppCompatActivity() {
                     etCode.error = getString(R.string.code_exists)
                     valid = false
                 }
-                if (!stock.isFinite() || stock <= 0) {
+                if (!stock.isFinite() || stock < 0) {
                     etStock.error = getString(R.string.stock_invalid)
                     valid = false
                 }
-                if (!price.isFinite() || price <= 0) {
+                if (!price.isFinite() || price < 0) {
                     etPrice.error = getString(R.string.price_invalid)
                     valid = false
                 }

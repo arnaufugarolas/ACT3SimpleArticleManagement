@@ -25,4 +25,25 @@ interface ArticleDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM article WHERE code = :code)")
     suspend fun checkIfCodeExists(code: String): Boolean
+
+    @Query("SELECT * FROM article WHERE stock > 0.0")
+    suspend fun getAllPositiveStock(): MutableList<Article>
+
+    @Query("SELECT * FROM article WHERE stock < 0.0")
+    suspend fun getAllNegativeStock(): MutableList<Article>
+
+    @Query("SELECT * FROM article WHERE stock = 0.0")
+    suspend fun getAllZeroStock(): MutableList<Article>
+
+    @Query("SELECT * FROM article WHERE stock > 0.0 AND description LIKE '%' || :filterPhrase || '%'")
+    suspend fun getAllPositiveStock(filterPhrase: String): MutableList<Article>
+
+    @Query("SELECT * FROM article WHERE stock < 0.0 AND description LIKE '%' || :filterPhrase || '%'")
+    suspend fun getAllNegativeStock(filterPhrase: String): MutableList<Article>
+
+    @Query("SELECT * FROM article WHERE stock = 0.0 AND description LIKE '%' || :filterPhrase || '%'")
+    suspend fun getAllZeroStock(filterPhrase: String): MutableList<Article>
+
+    @Query("SELECT * FROM article WHERE description LIKE '%' || :word || '%'")
+    suspend fun filterByWord(word: String): MutableList<Article>
 }

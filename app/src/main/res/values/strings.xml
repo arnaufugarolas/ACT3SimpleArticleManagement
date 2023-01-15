@@ -28,4 +28,13 @@
     <string name="edit_article">Edit Article: %1$s</string>
     <string name="update_article">Update Article</string>
     <string name="articles">Articles</string>
+    <string name="filter">Filter</string>
+    <string name="all_stock">All Stock</string>
+    <string name="positive_stock">Positive Stock</string>
+    <string name="zero_stock">Zero Stock</string>
+    <string name="negative_stock">Negative Stock</string>
+    <string name="by_description">By description</string>
+    <string name="write_a_phrase_to_filter_the_description">Write a phrase to filter the description:</string>
+    <string name="phrase">Phrase</string>
+    <string name="submit">Submit</string>
 </resources>
