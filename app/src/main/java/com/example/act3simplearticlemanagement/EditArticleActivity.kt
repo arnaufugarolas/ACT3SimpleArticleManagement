@@ -39,17 +39,19 @@ class EditArticleActivity : AppCompatActivity() {
         etDescription = findViewById(R.id.ETArticleFormDescription)
         btnSave = findViewById(R.id.BArticleFormSubmit)
 
+        btnSave.text = getString(R.string.update_article)
+
         btnSave.setOnClickListener {
             updateItem()
         }
     }
 
     private fun setupDatabase() {
-        val articleCode = intent.getStringExtra("articleCode")!!
+        val articleCode = intent.getStringExtra(getString(R.string.article_code))!!
 
         db = Room.databaseBuilder(
             applicationContext,
-            ArticleDatabase::class.java, "Articles"
+            ArticleDatabase::class.java, getString(R.string.database_name)
         ).build()
 
         dao = db.articleDao()
@@ -60,7 +62,7 @@ class EditArticleActivity : AppCompatActivity() {
     }
 
     private fun setupForm() {
-        supportActionBar?.title = "Edit Article: ${article.code}"
+        supportActionBar?.title = getString(R.string.edit_article, article.code)
 
         etCode.setText(article.code)
         etCode.isEnabled = false
@@ -84,12 +86,12 @@ class EditArticleActivity : AppCompatActivity() {
         }
 
         if (!price.isFinite() || price < 0) {
-            etPrice.error = "Price must be a positive number or zero"
+            etPrice.error = getString(R.string.price_invalid)
             valid = false
         }
 
         if (etDescription.text.toString() == "") {
-            etDescription.error = "Description must not be empty"
+            etDescription.error = getString(R.string.description_empty)
             valid = false
         }
 
@@ -97,10 +99,10 @@ class EditArticleActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 dao.update(
                     article.code,
-                    etDescription.text.toString(),
-                    etFamily.text.toString(),
-                    etPrice.text.toString().toFloat(),
                     article.stock,
+                    etPrice.text.toString().toFloat(),
+                    etFamily.text.toString(),
+                    etDescription.text.toString()
                 )
             }.invokeOnCompletion {
                 db.close()

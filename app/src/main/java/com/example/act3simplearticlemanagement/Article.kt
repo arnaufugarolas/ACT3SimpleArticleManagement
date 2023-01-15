@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class Article(
     @PrimaryKey val code: String,
-    @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "family") val family: String?,
+    @ColumnInfo(name = "stock") val stock: Float,
     @ColumnInfo(name = "price") val price: Float,
-    @ColumnInfo(name = "stock") val stock: Float
+    @ColumnInfo(name = "family") val family: String?,
+    @ColumnInfo(name = "description") val description: String
 )

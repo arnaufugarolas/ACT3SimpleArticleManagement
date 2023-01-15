@@ -2,7 +2,6 @@ package com.example.act3simplearticlemanagement
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -37,7 +36,6 @@ class MainActivity : AppCompatActivity() {
             }.invokeOnCompletion {
                 if (currentArticles != articles) {
                     articles = currentArticles
-                    Log.d("Debug", "Articles")
                     recyclerViewArticles.adapter = ArticleAdapter(applicationContext, articles)
                 }
             }
@@ -51,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupMenu(menu: Menu?) {
         menuInflater.inflate(R.menu.menu, menu)
-        supportActionBar?.title = "Articles"
+        supportActionBar?.title = getString(R.string.articles)
         menu?.findItem(R.id.MIAdd)?.setOnMenuItemClickListener {
             val intent = Intent(this, AddArticleActivity::class.java)
             startActivity(intent)
@@ -71,17 +69,17 @@ class MainActivity : AppCompatActivity() {
     private fun setupDatabase() {
         db = Room.databaseBuilder(
             applicationContext,
-            ArticleDatabase::class.java, "Articles"
+            ArticleDatabase::class.java, getString(R.string.database_name)
         ).build()
 
         dao = db.articleDao()
 
         lifecycleScope.launch {
             if (dao.getAll().isEmpty()) {
-                dao.insert("ART-023434", "Article 1", "SOFTWARE", 1.0f, 1.0f)
-                dao.insert("ART-034353", "Article 2", "HARDWARE", 2.0f, 2.0f)
-                dao.insert("ART-043523", "Article 3", "OTHER", 3.0f, 3.0f)
-                dao.insert("ART-054345", "Article 4", "NONE", 4.0f, 4.0f)
+                dao.insert("ART-023435", 1.0f, 1.0f, "SOFTWARE", "Article 1")
+                dao.insert("ART-034354", 2.0f, 2.0f, "HARDWARE", "Article 2")
+                dao.insert("ART-043524", 3.0f, 3.0f, "OTHER", "Article 3")
+                dao.insert("ART-054346", 4.0f, 4.0f, "NONE", "Article 4")
             }
             articles = dao.getAll()
         }.invokeOnCompletion { setupRecyclerView() }

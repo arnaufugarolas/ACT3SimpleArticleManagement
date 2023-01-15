@@ -28,7 +28,7 @@ class AddArticleActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        supportActionBar?.title = "Add Article"
+        supportActionBar?.title = getString(R.string.add_article)
 
         return super.onCreateOptionsMenu(menu)
     }
@@ -46,6 +46,8 @@ class AddArticleActivity : AppCompatActivity() {
         etDescription = findViewById(R.id.ETArticleFormDescription)
         btnSave = findViewById(R.id.BArticleFormSubmit)
 
+        btnSave.text = getString(R.string.add_article)
+
         btnSave.setOnClickListener {
             insertItem()
         }
@@ -54,7 +56,7 @@ class AddArticleActivity : AppCompatActivity() {
     private fun setupDatabase() {
         db = Room.databaseBuilder(
             applicationContext,
-            ArticleDatabase::class.java, "Articles"
+            ArticleDatabase::class.java, getString(R.string.database_name)
         ).build()
 
         dao = db.articleDao()
@@ -92,34 +94,34 @@ class AddArticleActivity : AppCompatActivity() {
             var valid = true
             runOnUiThread {
                 if (code.isEmpty()) {
-                    etCode.error = "Code cannot be empty"
+                    etCode.error = getString(R.string.code_empty)
                     valid = false
                 } else if (codeExists) {
-                    etCode.error = "Code already exists"
+                    etCode.error = getString(R.string.code_exists)
                     valid = false
                 }
                 if (!stock.isFinite() || stock <= 0) {
-                    etStock.error = "Stock must be a positive number"
+                    etStock.error = getString(R.string.stock_invalid)
                     valid = false
                 }
                 if (!price.isFinite() || price <= 0) {
-                    etPrice.error = "Price must be a positive number or zero"
+                    etPrice.error = getString(R.string.price_invalid)
                     valid = false
                 }
                 if (description.isEmpty()) {
-                    etDescription.error = "Description cannot be empty"
+                    etDescription.error = getString(R.string.description_empty)
                     valid = false
                 }
             }
 
             if (valid) {
                 lifecycleScope.launch {
-                    dao.insert(code, description, family, price, stock)
+                    dao.insert(code, stock, price, family, description)
                 }.invokeOnCompletion { finish() }
             } else {
                 Snackbar.make(
                     findViewById(R.id.SVArticleForm),
-                    "Invalid data",
+                    getString(R.string.invalid_data),
                     Snackbar.LENGTH_SHORT
                 ).show()
             }

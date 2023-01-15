@@ -39,22 +39,27 @@ class ArticleAdapter(private val context: Context, private val mList: MutableLis
     private fun bind(holder: ViewHolder, itemsViewModel: Article) {
         holder.delete.setOnClickListener {
             AlertDialog.Builder(it.context)
-                .setMessage("Are you sure you want to delete this article?")
-                .setPositiveButton("Yes") { _, _ -> deleteItem(itemsViewModel, it) }
-                .setNeutralButton("Cancel") { _, _ -> }
+                .setMessage(context.getString(R.string.delete_confirmation))
+                .setPositiveButton(context.getString(R.string.yes)) { _, _ ->
+                    deleteItem(
+                        itemsViewModel,
+                        it
+                    )
+                }
+                .setNeutralButton(context.getString(R.string.cancel)) { _, _ -> }
                 .show()
         }
 
         holder.itemView.setOnClickListener {
             val i = Intent(context, EditArticleActivity::class.java)
-            i.putExtra("articleCode", itemsViewModel.code)
+            i.putExtra(context.getString(R.string.article_code), itemsViewModel.code)
             it.context.startActivity(i)
         }
 
         when (itemsViewModel.family) {
-            "SOFTWARE" -> Paris.style(holder.item).apply(R.style.ItemArticleSoftware)
-            "HARDWARE" -> Paris.style(holder.item).apply(R.style.ItemArticleHardware)
-            "OTHER" -> Paris.style(holder.item).apply(R.style.ItemArticleOther)
+            context.getString(R.string.software) -> Paris.style(holder.item).apply(R.style.ItemArticleSoftware)
+            context.getString(R.string.hardware) -> Paris.style(holder.item).apply(R.style.ItemArticleHardware)
+            context.getString(R.string.other) -> Paris.style(holder.item).apply(R.style.ItemArticleOther)
             else -> Paris.style(holder.item).apply(R.style.ItemArticleNone)
         }
 
@@ -67,11 +72,11 @@ class ArticleAdapter(private val context: Context, private val mList: MutableLis
         holder.basePrice.text = context.getString(
             R.string.price,
             itemsViewModel.price.toString()
-        ).replace(".", ",")
+        ).replace(context.getString(R.string.dot), context.getString(R.string.coma))
         holder.taxedPrice.text = context.getString(
             R.string.price,
             (itemsViewModel.price * 1.21).toString()
-        ).replace(".", ",")
+        ).replace(context.getString(R.string.dot), context.getString(R.string.coma))
         holder.description.text = itemsViewModel.description
     }
 
@@ -80,7 +85,7 @@ class ArticleAdapter(private val context: Context, private val mList: MutableLis
 
         val db = Room.databaseBuilder(
             context,
-            ArticleDatabase::class.java, "Articles"
+            ArticleDatabase::class.java, context.getString(R.string.database_name)
         ).build()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -90,7 +95,8 @@ class ArticleAdapter(private val context: Context, private val mList: MutableLis
 
         mList.removeAt(position)
         notifyItemRemoved(position)
-        Snackbar.make(view, "Article deleted", Snackbar.LENGTH_LONG).show()
+        Snackbar.make(view, context.getString(R.string.article_deleted), Snackbar.LENGTH_LONG)
+            .show()
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
