@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="LayoutWW">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -26,7 +27,7 @@
     </style>
 
     <style name="Layout00T5" parent="Layout00">
-        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginTop">0dp</item>
     </style>
 
     <style name="LayoutMWB5" parent="LayoutMW">
@@ -74,13 +75,43 @@
         <item name="android:layout_margin">5dp</item>
     </style>
 
-    <style name="ItemArticleDescription" parent="Layout0W">
+    <style name="ItemArticleDescription" parent="Layout00">
         <item name="android:autoSizeTextType">uniform</item>
         <item name="android:breakStrategy">high_quality</item>
         <item name="android:justificationMode">inter_word</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">top</item>
+        <item name="android:autoSizeMaxTextSize">25dp</item>
+    </style>
+
+    <style name="ItemArticleDelete" parent="Layout00">
+        <item name="android:contentDescription">@string/delete</item>
+        <item name="android:src">@drawable/outline_delete_forever_24</item>
+    </style>
+
+    <style name="AddFormText" parent="Layout00">
+        <item name="android:autoSizeTextType">uniform</item>
         <item name="android:gravity">start|center_vertical</item>
-        <item name="android:autoSizeMaxTextSize">50dp</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="AddFormLabel" parent="AddFormText">
+        <item name="android:layout_height">35dp</item>
+    </style>
+
+    <style name="AddFormInput" parent="AddFormText">
+        <item name="android:layout_height">55dp</item>
+    </style>
+
+    <style name="AddFormInputDescription" parent="Layout0W">
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:importantForAutofill">no</item>
+        <item name="android:gravity">top|start</item>
+        <item name="android:inputType">text|textMultiLine</item>
+        <item name="android:lines">5</item>
+        <item name="android:overScrollMode">always</item>
+        <item name="android:scrollbarStyle">insideInset</item>
+        <item name="android:scrollbars">vertical</item>
     </style>
 </resources>

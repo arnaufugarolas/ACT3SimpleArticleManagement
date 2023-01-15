@@ -6,7 +6,7 @@ import androidx.room.Query
 @Dao
 interface ArticleDao {
     @Query("SELECT * FROM article")
-    suspend fun getAll(): List<Article>
+    suspend fun getAll(): MutableList<Article>
 
     @Query("SELECT * FROM article WHERE stock <= 0")
     suspend fun getOutOfStock(): List<Article>

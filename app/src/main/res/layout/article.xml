@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/CLArticle"
     style="@style/ItemArticleNone">
 
     <androidx.constraintlayout.widget.Guideline
@@ -16,6 +17,11 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/GArticleColumn03"
+        style="@style/Column"
+        app:layout_constraintGuide_percent="0.90" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/GArticleColumn04"
         style="@style/Column"
         app:layout_constraintGuide_percent="0.95" />
 
@@ -47,6 +53,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Stock" />
 
+    <ImageView
+        android:id="@+id/IVArticleDelete"
+        style="@style/ItemArticleDelete"
+        app:layout_constraintBottom_toTopOf="@+id/GArticleRow01"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/GArticleColumn03"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/TVArticlePriceBase"
         style="@style/ItemArticlePrice"
@@ -60,7 +74,7 @@
         android:id="@+id/TVArticlePriceTaxed"
         style="@style/ItemArticlePrice"
         app:layout_constraintBottom_toTopOf="@+id/GArticleRow02"
-        app:layout_constraintEnd_toStartOf="@+id/GArticleColumn03"
+        app:layout_constraintEnd_toStartOf="@+id/GArticleColumn04"
         app:layout_constraintStart_toStartOf="@+id/GArticleColumn02"
         app:layout_constraintTop_toTopOf="@+id/GArticleRow01"
         tools:text="With VAT" />
@@ -69,7 +83,7 @@
         android:id="@+id/TVArticleDescription"
         style="@style/ItemArticleDescription"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/GArticleColumn03"
+        app:layout_constraintEnd_toStartOf="@+id/GArticleColumn04"
         app:layout_constraintStart_toStartOf="@+id/GArticleColumn01"
         app:layout_constraintTop_toTopOf="@+id/GArticleRow02"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis gravida dui, eu sollicitudin massa. Nullam mattis erat lacus, et tempus est vestibulum ac. Suspendisse varius lacinia mauris, in interdum odio sodales ac. Morbi" />

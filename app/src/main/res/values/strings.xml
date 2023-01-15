@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ACT3 Simple Article Management</string>
+    <string name="delete">Delete</string>
+    <string name="price">%1$s€</string>
+    <string name="code_label">Code:</string>
+    <string name="stock_label">Stock:</string>
+    <string name="price_label">Price:</string>
+    <string name="description_label">Description:</string>
+    <string name="family">Family:</string>
+    <string name="add_article">Add Article</string>
 </resources>
