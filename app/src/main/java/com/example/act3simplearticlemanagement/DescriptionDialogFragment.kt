@@ -10,21 +10,25 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 
-class DescriptionDialogFragment(): DialogFragment() {
+class DescriptionDialogFragment : DialogFragment() {
     private var mCallback: FilterDescriptionInterface? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         val view: View = inflater.inflate(R.layout.insert_word_dialog, container, false)
         val btnOk: Button = view.findViewById(R.id.ButtonSubmitDialog)
         val btnCancel: Button = view.findViewById(R.id.ButtonCancelDialog)
         val editTextData: EditText = view.findViewById(R.id.ETDataDialog)
 
-        btnOk.setOnClickListener{
-                mCallback?.filter(editTextData.text.toString())
+        btnOk.setOnClickListener {
+            mCallback?.filter(editTextData.text.toString())
             this.dismiss()
         }
 
-        btnCancel.setOnClickListener{
+        btnCancel.setOnClickListener {
             this.dismiss()
         }
 

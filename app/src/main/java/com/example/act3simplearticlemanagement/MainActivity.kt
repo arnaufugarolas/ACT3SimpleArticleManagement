@@ -62,12 +62,6 @@ class MainActivity : AppCompatActivity(), FilterDescriptionInterface {
         dao = db.articleDao()
 
         lifecycleScope.launch {
-            if (dao.getAll().isEmpty()) {
-                dao.insert("ART-023435", 1.0f, 10.0f, "SOFTWARE", "Article 1")
-                dao.insert("ART-034354", 2.0f, 5.0f, "HARDWARE", "Article 2")
-                dao.insert("ART-043524", 0.0f, 3.0f, "OTHER", "Article 3")
-                dao.insert("ART-054346", -4.0f, 0.0f, "NONE", "Article 4")
-            }
             articles = dao.getAll()
         }.invokeOnCompletion { setupRecyclerView() }
     }
