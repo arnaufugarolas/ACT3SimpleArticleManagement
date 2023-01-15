@@ -2,6 +2,7 @@ package com.example.act3simplearticlemanagement
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
             }.invokeOnCompletion {
                 if (currentArticles != articles) {
                     articles = currentArticles
+                    Log.d("Debug", "Articles")
                     recyclerViewArticles.adapter = ArticleAdapter(applicationContext, articles)
                 }
             }
@@ -75,7 +77,6 @@ class MainActivity : AppCompatActivity() {
         dao = db.articleDao()
 
         lifecycleScope.launch {
-            // dao.deleteAll()
             if (dao.getAll().isEmpty()) {
                 dao.insert("ART-023434", "Article 1", "SOFTWARE", 1.0f, 1.0f)
                 dao.insert("ART-034353", "Article 2", "HARDWARE", 2.0f, 2.0f)

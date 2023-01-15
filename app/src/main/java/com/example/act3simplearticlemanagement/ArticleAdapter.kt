@@ -2,6 +2,7 @@ package com.example.act3simplearticlemanagement
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,20 @@ class ArticleAdapter(private val context: Context, private val mList: MutableLis
     }
 
     private fun bind(holder: ViewHolder, itemsViewModel: Article) {
+        holder.delete.setOnClickListener {
+            AlertDialog.Builder(it.context)
+                .setMessage("Are you sure you want to delete this article?")
+                .setPositiveButton("Yes") { _, _ -> deleteItem(itemsViewModel, it) }
+                .setNeutralButton("Cancel") { _, _ -> }
+                .show()
+        }
+
+        holder.itemView.setOnClickListener {
+            val i = Intent(context, EditArticleActivity::class.java)
+            i.putExtra("articleCode", itemsViewModel.code)
+            it.context.startActivity(i)
+        }
+
         when (itemsViewModel.family) {
             "SOFTWARE" -> Paris.style(holder.item).apply(R.style.ItemArticleSoftware)
             "HARDWARE" -> Paris.style(holder.item).apply(R.style.ItemArticleHardware)
@@ -43,12 +58,8 @@ class ArticleAdapter(private val context: Context, private val mList: MutableLis
             else -> Paris.style(holder.item).apply(R.style.ItemArticleNone)
         }
 
-        holder.delete.setOnClickListener {
-            AlertDialog.Builder(it.context)
-                .setMessage("Are you sure you want to delete this article?")
-                .setPositiveButton("Yes") { _, _ -> deleteItem(itemsViewModel, it) }
-                .setNeutralButton("Cancel") { _, _ -> }
-                .show()
+        if (itemsViewModel.stock <= 0) {
+            holder.stock.setTextAppearance(R.style.ItemArticleDataRed)
         }
 
         holder.code.text = itemsViewModel.code

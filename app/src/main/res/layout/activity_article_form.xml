@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/LayoutMM"
+    tools:context=".AddArticleActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/GArticleFormColumn01"
+        style="@style/Column"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/GArticleFormColumn02"
+        style="@style/Column"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/GArticleFormRow01"
+        style="@style/Row"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <ScrollView
+        android:id="@+id/SVArticleForm"
+        style="@style/Layout00"
+        app:layout_constraintBottom_toTopOf="@+id/GArticleFormRow01"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout style="@style/LayoutMW">
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/GFormColumn01"
+                style="@style/Column"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/GFormColumn02"
+                style="@style/Column"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <TextView
+                android:id="@+id/TVArticleFormCode"
+                style="@style/ArticleFormLabel"
+                android:labelFor="@id/ETArticleFormCode"
+                android:text="@string/code_label"
+                app:layout_constraintEnd_toEndOf="@+id/GFormColumn02"
+                app:layout_constraintStart_toStartOf="@+id/GFormColumn01"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/ETArticleFormCode"
+                style="@style/ArticleFormInput"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@+id/GFormColumn02"
+                app:layout_constraintStart_toStartOf="@+id/GFormColumn01"
+                app:layout_constraintTop_toBottomOf="@id/TVArticleFormCode"
+                tools:ignore="Autofill" />
+
+            <TextView
+                android:id="@+id/TVArticleFormStock"
+                style="@style/ArticleFormLabel"
+                android:labelFor="@id/ETArticleFormStock"
+                android:text="@string/stock_label"
+                app:layout_constraintEnd_toEndOf="@+id/GFormColumn02"
+                app:layout_constraintStart_toStartOf="@+id/GFormColumn01"
+                app:layout_constraintTop_toBottomOf="@id/ETArticleFormCode" />
+
+            <EditText
+                android:id="@+id/ETArticleFormStock"
+                style="@style/ArticleFormInput"
+                android:inputType="numberDecimal|numberSigned"
+                app:layout_constraintEnd_toEndOf="@+id/GFormColumn02"
+                app:layout_constraintStart_toStartOf="@+id/GFormColumn01"
+                app:layout_constraintTop_toBottomOf="@id/TVArticleFormStock"
+                tools:ignore="Autofill" />
+
+            <TextView
+                android:id="@+id/TVArticleFormPrice"
+                style="@style/ArticleFormLabel"
+                android:labelFor="@id/ETArticleFormPrice"
+                android:text="@string/price_label"
+                app:layout_constraintEnd_toEndOf="@+id/GFormColumn02"
+                app:layout_constraintStart_toStartOf="@+id/GFormColumn01"
+                app:layout_constraintTop_toBottomOf="@id/ETArticleFormStock" />
+
+            <EditText
+                android:id="@+id/ETArticleFormPrice"
+                style="@style/ArticleFormInput"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@+id/GFormColumn02"
+                app:layout_constraintStart_toStartOf="@+id/GFormColumn01"
+                app:layout_constraintTop_toBottomOf="@id/TVArticleFormPrice"
+                tools:ignore="Autofill" />
+
+            <TextView
+                android:id="@+id/TVArticleFormFamily"
+                style="@style/ArticleFormLabel"
+                android:labelFor="@id/ETArticleFormFamily"
+                android:text="@string/family"
+                app:layout_constraintEnd_toEndOf="@+id/GFormColumn02"
+                app:layout_constraintStart_toStartOf="@+id/GFormColumn01"
+                app:layout_constraintTop_toBottomOf="@id/ETArticleFormPrice" />
+
+            <EditText
+                android:id="@+id/ETArticleFormFamily"
+                style="@style/ArticleFormInput"
+                android:inputType="textCapCharacters"
+                app:layout_constraintEnd_toEndOf="@+id/GFormColumn02"
+                app:layout_constraintStart_toStartOf="@+id/GFormColumn01"
+                app:layout_constraintTop_toBottomOf="@id/TVArticleFormFamily"
+                tools:ignore="Autofill" />
+
+            <TextView
+                android:id="@+id/TVArticleFormDescription"
+                style="@style/ArticleFormLabel"
+                android:labelFor="@id/ETArticleFormDescription"
+                android:text="@string/description_label"
+                app:layout_constraintEnd_toEndOf="@+id/GFormColumn02"
+                app:layout_constraintStart_toStartOf="@+id/GFormColumn01"
+                app:layout_constraintTop_toBottomOf="@id/ETArticleFormFamily" />
+
+            <EditText
+                android:id="@+id/ETArticleFormDescription"
+                style="@style/ArticleFormInputDescription"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/GFormColumn02"
+                app:layout_constraintStart_toStartOf="@+id/GFormColumn01"
+                app:layout_constraintTop_toBottomOf="@id/TVArticleFormDescription"
+                tools:ignore="Autofill" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/BArticleFormSubmit"
+        style="@style/Layout00"
+        android:text="@string/add_article"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/GArticleFormColumn02"
+        app:layout_constraintStart_toEndOf="@+id/GArticleFormColumn01"
+        app:layout_constraintTop_toBottomOf="@+id/SVArticleForm" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,65 +5,124 @@ import android.view.Menu
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddArticleActivity : AppCompatActivity() {
+    private lateinit var db: ArticleDatabase
+    private lateinit var dao: ArticleDao
+    private lateinit var etCode: EditText
+    private lateinit var etStock: EditText
+    private lateinit var etPrice: EditText
+    private lateinit var etFamily: EditText
+    private lateinit var etDescription: EditText
+    private lateinit var btnSave: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_article)
+        setContentView(R.layout.activity_article_form)
 
         init()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        setupMenu(menu)
+        supportActionBar?.title = "Add Article"
+
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun setupMenu(menu: Menu?) {
-        supportActionBar?.title = "Add Article"
+    private fun init() {
+        setupVariables()
+        setupDatabase()
     }
 
-    private fun init() {
-        findViewById<Button>(R.id.BAddSubmit).setOnClickListener {
+    private fun setupVariables() {
+        etCode = findViewById(R.id.ETArticleFormCode)
+        etStock = findViewById(R.id.ETArticleFormStock)
+        etPrice = findViewById(R.id.ETArticleFormPrice)
+        etFamily = findViewById(R.id.ETArticleFormFamily)
+        etDescription = findViewById(R.id.ETArticleFormDescription)
+        btnSave = findViewById(R.id.BArticleFormSubmit)
+
+        btnSave.setOnClickListener {
             insertItem()
         }
     }
 
-    private fun insertItem() {
-        val code = findViewById<EditText>(R.id.ETAddCode).text.toString()
-        val description = findViewById<EditText>(R.id.ETAddDescription).text.toString()
-        val family = findViewById<EditText>(R.id.ETAddFamily).text.toString()
-        val price = findViewById<EditText>(R.id.ETAddPrice).text.toString().toFloat()
-        val stock = findViewById<EditText>(R.id.ETAddStock).text.toString().toFloat()
-
-        val db = Room.databaseBuilder(
+    private fun setupDatabase() {
+        db = Room.databaseBuilder(
             applicationContext,
             ArticleDatabase::class.java, "Articles"
         ).build()
 
-        val dao = db.articleDao()
-        var valid = false
+        dao = db.articleDao()
+    }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            valid = !dao.checkIfCodeExists(code)
+
+    private fun insertItem() {
+        val code = etCode.text.toString()
+        var stock = Float.NaN
+        var price = Float.NaN
+        val family = etFamily.text.toString()
+        val description = etDescription.text.toString()
+        var codeExists = false
+
+
+        if (etStock.text.toString() != "") {
+            stock = try {
+                etStock.text.toString().toFloat()
+            } catch (e: Exception) {
+                Float.NaN
+            }
+        }
+
+        if (etPrice.text.toString() != "") {
+            price = try {
+                etPrice.text.toString().toFloat()
+            } catch (e: Exception) {
+                Float.NaN
+            }
+        }
+
+        lifecycleScope.launch {
+            codeExists = dao.checkIfCodeExists(code)
         }.invokeOnCompletion {
-            if (valid && code.isNotEmpty() && description.isNotEmpty() && price.isFinite() && stock.isFinite()) {
-                CoroutineScope(Dispatchers.IO).launch {
+            var valid = true
+            runOnUiThread {
+                if (code.isEmpty()) {
+                    etCode.error = "Code cannot be empty"
+                    valid = false
+                } else if (codeExists) {
+                    etCode.error = "Code already exists"
+                    valid = false
+                }
+                if (!stock.isFinite() || stock <= 0) {
+                    etStock.error = "Stock must be a positive number"
+                    valid = false
+                }
+                if (!price.isFinite() || price <= 0) {
+                    etPrice.error = "Price must be a positive number"
+                    valid = false
+                }
+                if (description.isEmpty()) {
+                    etDescription.error = "Description cannot be empty"
+                    valid = false
+                }
+            }
+
+            if (valid) {
+                lifecycleScope.launch {
                     dao.insert(code, description, family, price, stock)
                 }.invokeOnCompletion { finish() }
             } else {
                 Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Article code already exists in the database or some fields are invalid",
-                    Snackbar.LENGTH_LONG
+                    findViewById(R.id.SVArticleForm),
+                    "Invalid data",
+                    Snackbar.LENGTH_SHORT
                 ).show()
             }
-
         }
     }
 }
