@@ -53,16 +53,6 @@ class AddArticleActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupDatabase() {
-        db = Room.databaseBuilder(
-            applicationContext,
-            ArticleDatabase::class.java, getString(R.string.database_name)
-        ).build()
-
-        dao = db.articleDao()
-    }
-
-
     private fun insertItem() {
         val code = etCode.text.toString()
         var stock = Float.NaN
@@ -126,5 +116,14 @@ class AddArticleActivity : AppCompatActivity() {
                 ).show()
             }
         }
+    }
+
+    private fun setupDatabase() {
+        db = Room.databaseBuilder(
+            applicationContext,
+            ArticleDatabase::class.java, getString(R.string.database_name)
+        ).build()
+
+        dao = db.articleDao()
     }
 }
